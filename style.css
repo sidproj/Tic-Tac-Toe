@@ -130,6 +130,21 @@ span{
         font-size: 50px;
         line-height: 50px;
     }
+    #btn1,#btn2,#btn4,#btn5{
+        border-right:solid 5px #000000ba;
+        border-bottom:solid 5px #000000ba;
+        border-radius: 0px;
+    }
+
+    #btn3,#btn6{
+        border-bottom:solid 5px #000000ba;
+        border-radius: 0px;
+    }
+
+    #btn7,#btn8{
+        border-right:solid 5px #000000ba;
+        border-radius: 0px;
+    }
 
     #result{
         position:absolute;
