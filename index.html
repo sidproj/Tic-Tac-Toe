@@ -201,6 +201,10 @@
             document.getElementById("result").innerText = player+ " won the match!!";
             return 0;
         }
+        else if (checkMatch() ==false && freeSquare().length == 0){
+            document.getElementById("result").innerText = "Its a draw!";
+            return 0;
+        }
     }
 
     //logic functions for miniMax
