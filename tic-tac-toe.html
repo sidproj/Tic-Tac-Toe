@@ -1,0 +1,390 @@
+<html lang="en">
+<head>
+    <link href="style.css" rel="stylesheet">
+    <title>Tic-Tac-Toe</title>
+</head>
+<body aria-hidden="true">
+    <h1>TIC-TAC-TOE</h1>
+    <h3 id="playerX" onclick="changeTurn(event)">Go Second?</h3>
+    <div class= "papper" id="papper">
+        <div id="btn1" class="unset"></div>
+        <div id="btn2" class="unset"></div>
+        <div id="btn3" class="unset"></div>
+        <div id="btn4" class="unset"></div>
+        <div id="btn5" class="unset"></div>
+        <div id="btn6" class="unset"></div>
+        <div id="btn7" class="unset"></div>
+        <div id="btn8" class="unset"></div>
+        <div id="btn9" class="unset"></div>
+    </div>
+    <h1 id="result">Playing...</h1>
+    <div onclick='reset()'><img src="reset.png" id="reset"><span>Reset</span></div>
+</body>
+
+<script>
+    
+    window.onload= ()=>{
+
+        let buttons = document.getElementById("papper").children;
+        for(let i=0;i<buttons.length;i++){
+            
+            buttons[i].addEventListener("click",(event)=>{
+                useTurn(event);
+            });
+        }        
+    };
+
+    const reset = () => {
+        location.reload();
+    }
+
+    // variables/ constants
+    let board=[
+        ["-","-","-"],
+        ["-","-","-"],
+        ["-","-","-"]
+    ];
+
+    const opponent = "X";
+    
+    const player="O";
+
+    let first = false;
+
+    //gui functions or document processing functions
+
+    const changeTurn = (event) =>{
+        console.log(0);
+        if(event.target.innerText == "Go Second?"){
+            event.target.innerText = "Go First?";
+            first=true;
+            
+            if(first == true){
+                if(freeSquare().length == 9)
+               findBestMove(board);
+            }
+        }
+        else if(event.target.innerText == "Go First?"){
+            location.reload();
+        }
+    }
+
+    const disableAll = ()=>{
+        for(let i=1;i<10;i++){
+            getBtn(i).classList.add("clicked");
+        }
+    }
+    
+    const getBtn = (btn) => {
+        switch( btn ){
+            case 1:return document.getElementById("btn1");break;
+            case 2:return document.getElementById("btn2");break;
+            case 3:return document.getElementById("btn3");break;
+            case 4:return document.getElementById("btn4");break;
+            case 5:return document.getElementById("btn5");break;
+            case 6:return document.getElementById("btn6");break;            
+            case 7:return document.getElementById("btn7");break;
+            case 8:return document.getElementById("btn8");break;
+            case 9:return document.getElementById("btn9");break;
+            default:return null;
+        }
+    }
+
+    const checkMatch = () => {
+        for(i=1;i<10;i+=3){
+            if( getBtn(i).innerText == getBtn(i+1).innerText && getBtn(i).innerText == getBtn(i+2).innerText  && getBtn(i).innerText.length==1 ){
+                getBtn(i).classList.add ("win");
+                getBtn(i+1).classList.add("win");
+                getBtn(i+2).classList.add("win");
+                disableAll();
+                return true;
+            }
+        }
+        for(i=1;i<4;i++){
+            if( getBtn(i).innerText == getBtn(i+3).innerText && getBtn(i).innerText == getBtn(i+6).innerText && getBtn(i).innerText.length==1 ){
+                getBtn(i).classList.add("win");
+                getBtn(i+3).classList.add("win");
+                getBtn(i+6).classList.add("win");
+                disableAll();
+                return true;
+            }
+        }
+        if( getBtn(1).innerText==getBtn(5).innerText && getBtn(1).innerText == getBtn(9).innerText && getBtn(1).innerText.length==1){
+                getBtn(1).classList.add("win");
+                getBtn(5).classList.add("win");
+                getBtn(9).classList.add("win");
+                disableAll();
+                return true;
+        }
+        else if( getBtn(3).innerText==getBtn(5).innerText && getBtn(3).innerText == getBtn(7).innerText && getBtn(3).innerText.length==1 ){
+                getBtn(3).classList.add("win");
+                getBtn(5).classList.add("win");
+                getBtn(7).classList.add("win");
+                disableAll();
+                return true;
+        }
+        else return false;
+    }
+    
+    const freeSquare = () => {
+        let fs =[];
+        for(i=1;i<10;i++){
+            if(getBtn(i).innerText.length == 0 && getBtn(i).getAttribute("class").split(" ").length == 1 ){
+                fs.push(getBtn(i));
+            }
+        }
+        return fs; 
+    }
+
+    const updateBoard = (b,btnId,p) => {
+        switch(btnId){
+            case "btn1":
+                b[0][0] = p;break;
+            case "btn2":
+                b[0][1] = p;break;
+            case "btn3":
+                b[0][2] = p;break;
+            case "btn4":
+                b[1][0] = p;break;
+            case "btn5":
+                b[1][1] = p;break;
+            case "btn6":
+                b[1][2] = p;break;
+            case "btn7":
+                b[2][0] = p;break;
+            case "btn8":
+                b[2][1] = p;break;
+            case "btn9":
+                b[2][2] = p;break;
+        }
+    }
+
+    const randomBot = () => {
+    
+        const fs=freeSquare();
+        if(fs.length>0){
+            let selectedBtn=fs [ Math.floor( Math.random() * fs.length ) ] ;
+            selectedBtn.click();;
+        }
+    }
+
+    const useTurn = (event) => {
+        let curBtn = event.target;
+        curBtn.classList.add("clicked");
+        
+        curBtn.innerText = opponent;
+        
+        updateBoard(board,curBtn.getAttribute("id"),opponent);
+
+        checkMatch();
+
+        if(checkMatch() == true){
+            document.getElementById("result").innerText = opponent+ " won the match!!";
+            return 0;
+        }
+
+        findBestMove(board);
+
+        checkMatch();
+        
+        if(checkMatch() == true){
+            document.getElementById("result").innerText = player+ " won the match!!";
+            return 0;
+        }
+    }
+
+    //logic functions for miniMax
+    const clickGUIBtn = (r,c) => {
+        if(r == 0 && c == 0){
+            getBtn(1).innerText=player;
+            getBtn(1).classList.add("clicked");
+            updateBoard(board,"btn1",player);
+        }
+        else if (r==0 && c == 1){
+            getBtn(2).innerText=player;
+            getBtn(2).classList.add("clicked");
+            updateBoard(board,"btn2",player);
+        }
+        else if (r == 0 && c == 2){
+            getBtn(3).innerText=player;
+            getBtn(3).classList.add("clicked");
+            updateBoard(board,"btn3",player);
+        }
+        else if (r==1 && c == 0 ){
+            getBtn(4).innerText=player;
+            getBtn(4).classList.add("clicked");
+            updateBoard(board,"btn4",player);
+        }
+        else if ( r==1 && c==1 ){
+            getBtn(5).innerText=player;
+            getBtn(5).classList.add("clicked");
+            updateBoard(board,"btn5",player);
+        }
+        else if ( r==1 && c==2 ){
+            getBtn(6).innerText=player;
+            getBtn(6).classList.add("clicked");
+            updateBoard(board,"btn6",player);
+        }
+        else if ( r==2 && c==0 ){
+            getBtn(7).innerText=player;
+            getBtn(7).classList.add("clicked");
+            updateBoard(board,"btn7",player);
+        }
+        else if ( r==2 && c==1 ){
+            getBtn(8).innerText=player;
+            getBtn(8).classList.add("clicked");
+            updateBoard(board,"btn8",player);
+        }
+        else if ( r==2 && c==2 ){
+            getBtn(9).innerText=player;
+            getBtn(9).classList.add("clicked");
+            updateBoard(board,"btn9",player);
+        }
+    }
+
+    const evaluate = (b) => {
+        
+        for(let row=0;row<3;row++){
+            if( b[row][0] == b[row][1] && b[row][0] == b[row][2] ){
+
+                if(b[row][0] == player){
+                    return 10;
+                }
+                else if(b[row][0]==opponent){
+                    return -10;
+                }
+            }
+        }
+
+        for(let col=0;col<3;col++){
+            if( b[0][col] == b[1][col] && b[1][col] == b[2][col] ){
+                if( b[0][col] == player){
+                    return 10;
+                }
+                else if (b[0][col] == opponent){
+                    return -10;
+                }
+            }
+        }
+
+        if(b[0][0] == b[1][1] && b[1][1] == b[2][2]){
+            if(b[0][0] == player){
+                return 10;
+            }
+            else if (b[0][0] == opponent){
+                return -10;
+            }
+        }
+        if (b[0][2] == b[1][1] && b[1][1] == b[2][0]) {
+            if (b[0][2] == player) {
+                return 10;
+            } else if (b[0][2] == opponent) {
+                return -10;
+            }
+        }
+        return 0;
+    }
+
+    const movesLeft = (b) => {
+        for(let row=0;row<3;row++){
+            for(let col=0;col<3;col++){
+                if(board[row][col] == "-"){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    const miniMax = (board,depth,isMax) =>{
+
+        const score = evaluate(board);
+        if ( score == 10 ){
+            return 10;
+        }
+        if ( score == -10 ){
+            return -10;
+        }
+
+        if( movesLeft(board) == false){
+            return 0;
+        }
+
+        if(isMax){
+
+            let best =-Infinity;
+
+            for(let row=0;row<3;row++){
+                for(let col=0;col<3;col++){
+                    if( board[row][col] == "-" ){
+
+                        board[row][col] = player;
+
+                        best = Math.max(best,miniMax(board,depth+1,!isMax));
+
+                        board[row][col] = "-";
+                    }
+                }
+            }
+            return best;
+        }
+        else{
+            let best = Infinity;
+
+            for(let row = 0;row<3;row++){
+                for(let col=0;col<3;col++){
+                    if( board[row][col] == "-"){
+
+                        board[row][col] = opponent;
+
+                        best = Math.min(best,miniMax(board,depth+1,!isMax));
+
+                        board[row][col] = "-";
+
+                    }
+                }
+            }
+            return best;
+        }
+    }
+
+    const findBestMove = (board) => {
+        let bestMove = {
+                        score:-Infinity,
+                        row:-1,
+                        col:-1
+                    };
+
+        for(let row=0;row<3;row++){
+            for(let col=0;col<3;col++){
+                if(board[row][col] == "-"){
+
+                    board[row][col] = player;
+
+                    let value = miniMax(board,0,false);
+
+                    board[row][col] = "-";
+
+                    if(bestMove.score < value){
+
+                        bestMove.row = row;
+                        bestMove.col = col;
+                        bestMove.score = value;
+                    }
+
+                }
+            }
+        }
+        console.log(board);
+        console.log(bestMove);
+        clickGUIBtn(bestMove.row,bestMove.col);
+    }
+
+    // let bestMove = findBestMove(board);
+    // board[bestMove.row][bestMove.col] = player;
+    // console.log(board);
+
+    //console.log(evaluate(board));
+</script>
+
+</html>

@@ -1,0 +1,104 @@
+body{
+    background-image: url("bg.jfif");
+    font-family:cursive;
+    font-weight: bolder;
+    user-select: none;
+    padding-top:50px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    display: flex;
+    justify-content: center;
+    font-family:cursive;
+    font-weight: bolder;
+    font-size: 50px;
+    color:#000000ba;
+}
+
+#playerX{
+    font-family:cursive;
+    font-weight: bolder;
+    font-size: 30px;
+    color:#000000ba;   
+
+    position:absolute;
+    top:100px;
+    left:100px
+}
+
+.papper{
+    display:grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    row-gap: 10px;
+    column-gap: 10px;
+    justify-content: center;
+}
+
+
+.papper div{
+    
+    width:100px;
+    height:100px;
+    
+    border:none;
+    border-radius:10px;
+
+    font-size:80px;
+    line-height: 100px;
+    text-align: center;
+    color:#000000ba;
+}
+
+#btn1,#btn2,#btn4,#btn5{
+    border-right:solid 10px #000000ba;
+    border-bottom:solid 10px #000000ba;
+    border-radius: 0px;
+}
+
+#btn3,#btn6{
+    border-bottom:solid 10px #000000ba;
+    border-radius: 0px;
+}
+
+#btn7,#btn8{
+    border-right:solid 10px #000000ba;
+    border-radius: 0px;
+}
+#btn9{
+    border-radius: 0px;
+}
+
+.win{
+    background-color: #bbcc1ed9;
+}
+
+.clicked{
+    pointer-events: none;
+}
+
+.papper div:hover{
+    background-color: rgba(0,0,0,0.3);
+}
+
+
+
+#reset{
+    width:50px;
+    height:50px;
+    padding:5px;
+    object-fit:fill;
+    opacity:0.75;
+}
+
+span{
+    
+    font-family:cursive;
+    font-weight: bolder;
+    font-size: 50px;
+    color:#000000ba; 
+    line-height:0px;
+}
