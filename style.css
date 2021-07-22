@@ -122,6 +122,8 @@ span{
         margin-top:70px;
         grid-template-columns: 80px 80px 80px;
         grid-template-rows: 80px 80px 80px;
+        row-gap:5px;
+        column-gap:5px;
     }
     .papper div{
         width:80px;
