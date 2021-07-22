@@ -73,7 +73,7 @@ h1{
 }
 
 .win{
-    background-color: #bbcc1ed9;
+    background-color: #e5ff0053;
 }
 
 .clicked{
@@ -127,6 +127,7 @@ span{
         grid-template-rows: 80px 80px 80px;
         row-gap: 5px;
         column-gap: 5px;
+        transform:rotate(-2deg);
     }
     .papper div{
         width:80px;
@@ -165,5 +166,9 @@ span{
     span{
         font-size:30px;
     }
+    .win{
+    background-color: #d5f74184;
+}
+
 
 }

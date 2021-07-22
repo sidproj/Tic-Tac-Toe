@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link href="style.css" rel="stylesheet">
     <title>Tic-Tac-Toe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body aria-hidden="true">
+<body aria-hidden="false">
     <h1>TIC-TAC-TOE</h1>
     <h3 id="playerX" onclick="changeTurn(event)">Go Second?</h3>
     <div class= "papper" id="papper">
@@ -19,7 +20,7 @@
         <div id="btn9" class="unset"></div>
     </div>
     <h1 id="result">Playing...</h1>
-    <div id="resetDIV" onclick='reset()'><img src="reset.png" id="reset"><span>Reset</span></div>
+    <div id="resetDIV" onclick='reset()'><img src="reset.png" alt="image to reset the game" id="reset"><span>Reset</span></div>
 </body>
 
 <script>
