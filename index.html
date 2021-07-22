@@ -2,6 +2,7 @@
 <head>
     <link href="style.css" rel="stylesheet">
     <title>Tic-Tac-Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body aria-hidden="true">
     <h1>TIC-TAC-TOE</h1>
@@ -18,7 +19,7 @@
         <div id="btn9" class="unset"></div>
     </div>
     <h1 id="result">Playing...</h1>
-    <div onclick='reset()'><img src="reset.png" id="reset"><span>Reset</span></div>
+    <div id="resetDIV" onclick='reset()'><img src="reset.png" id="reset"><span>Reset</span></div>
 </body>
 
 <script>
@@ -176,10 +177,19 @@
         
         updateBoard(board,curBtn.getAttribute("id"),opponent);
 
+        if(freeSquare().length == 8){
+            document.getElementById("playerX").style.textDecoration="line-through";
+            document.getElementById("playerX").classList.add("clicked");
+        }
+
         checkMatch();
 
         if(checkMatch() == true){
             document.getElementById("result").innerText = opponent+ " won the match!!";
+            return 0;
+        }
+        else if (checkMatch() ==false && freeSquare().length == 0){
+            document.getElementById("result").innerText = "Its a draw!";
             return 0;
         }
 
