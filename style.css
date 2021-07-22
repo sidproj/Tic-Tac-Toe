@@ -108,6 +108,9 @@ span{
         background-image: url("mobileBG.jpg");
         background-size: contain;
         padding-top:10px;
+        height:100vh;
+        overflow-x: hidden;
+        overflow-y: hidden;
     }
     h1{
         font-size: 20px;
@@ -122,8 +125,8 @@ span{
         margin-top:70px;
         grid-template-columns: 80px 80px 80px;
         grid-template-rows: 80px 80px 80px;
-        row-gap:5px;
-        column-gap:5px;
+        row-gap: 5px;
+        column-gap: 5px;
     }
     .papper div{
         width:80px;
@@ -147,7 +150,9 @@ span{
         border-right:solid 5px #000000ba;
         border-radius: 0px;
     }
-
+    #btn9{
+        border-radius: 0px;
+    }
     #result{
         position:absolute;
         bottom:150px;
